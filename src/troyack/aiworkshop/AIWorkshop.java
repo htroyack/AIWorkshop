@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package troyack.aiworkshop;
-import javax.swing.*;
-import troyack.aiworkshop.experiments.NewJFrame;
 
 
 /**
