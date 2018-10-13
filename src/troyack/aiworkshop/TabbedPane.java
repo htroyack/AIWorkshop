@@ -24,11 +24,10 @@ public class TabbedPane extends JPanel {
         super(new GridLayout(1, 1));
         
         JTabbedPane tabbedPane = new JTabbedPane();
-        ImageIcon icon = createImageIcon("glider.gif");
         
-        JComponent panel1 = makeTextPanel("Panel #1");
-        tabbedPane.addTab("Tab 1", icon, panel1,
-                "Does nothing");
+        AIWorkshopPanel life = new GameOfLifeBoard();
+        ImageIcon icon = createImageIcon(life.getIconName());
+        tabbedPane.addTab(life.getTitle(), icon, life, life.getDescription());
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
         
         JComponent panel2 = makeTextPanel("Panel #2");
