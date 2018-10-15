@@ -25,14 +25,13 @@ public class TabbedPane extends JPanel {
         
         JTabbedPane tabbedPane = new JTabbedPane();
         
-        AIWorkshopPanel life = new GameOfLifeBoard();
+        AIWorkshopPanel life = new GameOfLife();
         ImageIcon icon = createImageIcon(life.getIconName());
         tabbedPane.addTab(life.getTitle(), icon, life, life.getDescription());
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
         
-        JComponent panel2 = makeTextPanel("Panel #2");
-        tabbedPane.addTab("Tab 2", icon, panel2,
-                "Does twice as much nothing");
+        AIWorkshopPanel conway = new GameOfLifeBoard();
+        tabbedPane.addTab(conway.getTitle(), icon, conway, conway.getDescription());
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
         
         JComponent panel3 = makeTextPanel("Panel #3");
