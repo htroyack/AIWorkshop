@@ -10,6 +10,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -76,7 +79,7 @@ public class Queens extends AIWorkshopPanel implements TreeSelectionListener {
         board.setBorder(new EmptyBorder(gap, gap, gap, gap));
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
-                square[i][j] = new ChessSquare();
+                square[i][j] = new ChessSquare(i, j, this);
                 if (i % 2 == j % 2) {
                     square[i][j].setBackground(white);
                     square[i][j].setPiece(chessPieceImages[BLACK][QUEEN]);
@@ -141,12 +144,50 @@ public class Queens extends AIWorkshopPanel implements TreeSelectionListener {
         }
     }
 
-    private static class ChessSquare extends JPanel {
+    private void highlightTargets(int i, int j, boolean highlight) {
+        for (int column = 0; column < boardSize; column++) {
+            if (column == j) {
+                continue;
+            }
+            square[i][column].setHighlight(highlight);
+        }
+        for (int line = 0; line < boardSize; line++) {
+            if (line == i) {
+                continue;
+            }
+            square[line][j].setHighlight(highlight);
+        }
+
+        int min = (i < j) ? i : j;
+        for (int line = i - min, column = j - min; line < boardSize && column < boardSize; line++, column++) {
+            if (line == i && column == j) {
+                continue;
+            }
+            square[line][column].setHighlight(highlight);
+        }
+    }
+
+    private static class ChessSquare extends JPanel implements MouseListener {
 
         private Image pieceImage;
+        private boolean highlight;
+        private final Color highlightColor;
+        private final int i;
+        private final int j;
+        private final Queens board;
 
-        public ChessSquare() {
+        public ChessSquare(int i, int j, Queens board) {
             pieceImage = null;
+            highlight = false;
+            highlightColor = Color.RED;
+            this.i = i;
+            this.j = j;
+            this.board = board;
+            initSquare();
+        }
+
+        private void initSquare() {
+            this.addMouseListener(this);
         }
 
         public void setPiece(Image piece) {
@@ -154,15 +195,54 @@ public class Queens extends AIWorkshopPanel implements TreeSelectionListener {
             repaint();
         }
 
+        private void setHighlight(boolean highlight) {
+            this.highlight = highlight;
+            repaint();
+        }
+
+        private void mouseHover(boolean on) {
+            board.highlightTargets(i, j, on);
+        }
+
         @Override
         protected void paintComponent(Graphics g) {
+            Color bgPrev = null;
+            if (highlight) {
+                bgPrev = getBackground();
+                setBackground(highlightColor);
+            }
             super.paintComponent(g);
 
             if (pieceImage != null) {
                 g.drawImage(pieceImage, 0, 0, null);
             }
+
+            if (bgPrev != null) {
+                setBackground(bgPrev);
+            }
         }
 
+        @Override
+        public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            mouseHover(true);
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            mouseHover(false);
+        }
     }
 
 }
