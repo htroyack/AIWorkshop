@@ -6,7 +6,11 @@
 package troyack.aiworkshop;
 
 import java.awt.BorderLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -15,6 +19,12 @@ import javax.swing.JFrame;
 class AIWorkshopMainWindow {
     
     private static void createAndShowGUI() {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+        } catch (Exception ex) {
+            Logger.getLogger(AIWorkshopMainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         JFrame frame = new JFrame("Artificial Intelligence Workshop");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

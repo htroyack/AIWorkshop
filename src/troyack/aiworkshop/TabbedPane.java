@@ -34,9 +34,8 @@ public class TabbedPane extends JPanel {
         tabbedPane.addTab(conway.getTitle(), icon, conway, conway.getDescription());
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
         
-        JComponent panel3 = makeTextPanel("Panel #3");
-        tabbedPane.addTab("Tab 3", icon, panel3,
-                "Still does nothing");
+        AIWorkshopPanel queens = new Queens();
+        tabbedPane.addTab(queens.getTitle(), icon, queens, queens.getDescription());
         tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
         
         JComponent panel4 = makeTextPanel(

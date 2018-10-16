@@ -15,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -55,6 +56,7 @@ public class GameOfLife extends AIWorkshopPanel {
         setBackground(bgColor);
         JPanel board = new JPanel(new GridLayout(lines, columns, cellGap, cellGap));
         board.setBackground(fgColor);
+        board.setBorder(new EmptyBorder(cellGap, cellGap, cellGap, cellGap));
         // board.setBackground(Color.red);
         Dimension cellSize = new Dimension(cellWidth, cellHeight);
         cells = new Cell[lines][columns];
