@@ -33,7 +33,7 @@ public class GameOfLifeBoard extends AIWorkshopPanel {
     private final int updateDelay;
 
     public GameOfLifeBoard() {
-        lines = 30;
+        lines = 50;
         columns = lines * 2;
         top = 0;
         left = 0;
@@ -42,7 +42,7 @@ public class GameOfLifeBoard extends AIWorkshopPanel {
         cellMargin = 2;
         backgroundColor = Color.black;
         foregroundColor = Color.green;
-        updateDelay = 500;
+        updateDelay = 100;
 
         initBoard();
 
@@ -54,11 +54,18 @@ public class GameOfLifeBoard extends AIWorkshopPanel {
 
     private void initBoard() {
         cells = new boolean[lines][columns];
+
+        // glider
         cells[0][1] = true;
         cells[1][2] = true;
         cells[2][0] = true;
         cells[2][1] = true;
         cells[2][2] = true;
+        
+        // blinker
+        cells[1][10] = true;
+        cells[1][11] = true;
+        cells[1][12] = true;
     }
 
     private void advanceGeneration() {
