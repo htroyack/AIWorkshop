@@ -38,11 +38,9 @@ public class TabbedPane extends JPanel {
         tabbedPane.addTab(queens.getTitle(), icon, queens, queens.getDescription());
         tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
         
-        JComponent panel4 = makeTextPanel(
-                "Panel #4 (has a preferred size of 800 x 600).");
-        panel4.setPreferredSize(new Dimension(800, 600));
-        tabbedPane.addTab("Tab 4", icon, panel4,
-                "Does nothing at all");
+        AIWorkshopPanel romania = new Romania();
+        romania.setPreferredSize(new Dimension(800, 600));
+        tabbedPane.addTab(romania.getTitle(), icon, romania, romania.getDescription());
         tabbedPane.setMnemonicAt(3, KeyEvent.VK_4);
         
         add(tabbedPane);
