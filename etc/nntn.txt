@@ -1,0 +1,46 @@
+                       NOTES ON NEURAL NETWORKS TRAINING
+
+[SEEMS GOOD] http://www.princeton.edu/~stengel/AIAARichardson1997.pdf
+
+[ ++ ]http://www2.sys-con.com/itsg/virtualcd/java/archives/0705/heaton/index.html
+[Java+Keras]  https://towardsdatascience.com/deploying-keras-deep-learning-models-with-java-62d80464f34a
+[#handwritten-digit-recognition] https://github.com/topics/handwritten-digit-recognition?o=asc&s=forks
+[src] http://numrecognition.sourceforge.net/numrecognition/index.html
+http://neuralnetworksanddeeplearning.com/chap2.html
+https://hackernoon.com/my-first-steps-in-deep-learning-recognising-handwritten-digits-f72e72936ea4
+https://pdfs.semanticscholar.org/14ac/e90f795e7b463d0168883d671e044f5c8375.pdf
+https://pdfs.semanticscholar.org/ac7d/159e73af75c57a0510604caf6283aea02414.pdf
+https://page.mi.fu-berlin.de/rojas/neural/chapter/K8.pdf
+http://dergipark.gov.tr/download/article-file/391300
+http://www.academia.edu/4891975/Comparison_of_Neural_Network_Training_Algorithms_for_the_prediction_of_the_patients_post-operative_recovery_area
+https://medium.com/coinmonks/implementing-an-artificial-neural-network-in-pure-java-no-external-dependencies-975749a38114
+GOOGLe for "neural network training algorithms comparison"
+https://dzone.com/articles/designing-a-neural-network-in-java
+http://ramok.tech/tag/java-neural-networks-example/
+http://www.informit.com/articles/printerfriendly/30596
+https://github.com/jlmd/SimpleNeuralNetwork
+https://smalldata.tech/blog/2016/05/03/building-a-simple-neural-net-in-java
+https://www.oracle.com/technetwork/java/nbneural-317387.html
+https://lcn.epfl.ch/tutorial/docs/supervised.pdf
+https://www.neuraldesigner.com/blog/5_algorithms_to_train_a_neural_network
+  1. Gradient descent
+  2. Newton's method
+  3. Conjugate gradient
+  4. Quasi-Newton method
+  5. Levenberg-Marquardt algorithm
+https://github.com/ivan-vasilev/neuralnetworks
+  Backpropagation
+  Contrastive divergence and persistent contrastive divergence
+  Greedy layer-wise training for deep networks
+https://www.programcreek.com/java-api-examples/index.php?source_dir=encog-java-master/encog-workbench/src/org/encog/workbench/dialogs/training/genetic/ProgressGenetic.java
+  org.encog.workbench.dialogs.training.genetic;
+https://blog.coast.ai/lets-evolve-a-neural-network-with-a-genetic-algorithm-code-included-8809bece164
+https://natureofcode.com/book/chapter-10-neural-networks/
+https://towardsdatascience.com/how-do-we-train-neural-networks-edd985562b73
+  SGD with momentum.
+  RMSprop.
+  Adam.
+  Genetic Algorithm.
+https://en.wikipedia.org/wiki/Artificial_neural_network#Learning
+https://en.wikipedia.org/wiki/Machine_learning#Artificial_neural_networks
+https://www.semanticscholar.org/paper/Comparison-of-Feed-Forward-Neural-Network-Training-Adedayo-Isa/4522c6407c00c6a60add8784b0300a914708a47a
