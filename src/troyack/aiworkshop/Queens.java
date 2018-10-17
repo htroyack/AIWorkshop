@@ -12,7 +12,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -160,6 +159,14 @@ public class Queens extends AIWorkshopPanel implements TreeSelectionListener {
 
         int min = (i < j) ? i : j;
         for (int line = i - min, column = j - min; line < boardSize && column < boardSize; line++, column++) {
+            if (line == i && column == j) {
+                continue;
+            }
+            square[line][column].setHighlight(highlight);
+        }
+
+        min = ((boardSize - 1 - i) < j) ? (boardSize - 1 - i) : j;
+        for (int column = j - min, line = i + min; column < boardSize && line >= 0; column++, line--) {
             if (line == i && column == j) {
                 continue;
             }
