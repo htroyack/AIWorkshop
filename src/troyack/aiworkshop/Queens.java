@@ -10,13 +10,18 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
@@ -30,7 +35,8 @@ import javax.swing.tree.TreeSelectionModel;
  *
  * @author troyack
  */
-public class Queens extends AIWorkshopPanel implements TreeSelectionListener {
+public class Queens extends AIWorkshopPanel implements TreeSelectionListener,
+        ActionListener, Problem {
 
     private final int boardSize;
     private final int gap;
@@ -59,6 +65,10 @@ public class Queens extends AIWorkshopPanel implements TreeSelectionListener {
         loadImages();
         createBoard();
         createTree();
+        JButton solveButton = new JButton("Solve");
+        solveButton.setActionCommand("solve");
+        solveButton.addActionListener(this);
+        add(solveButton);
     }
 
     private void createTree() {
@@ -81,10 +91,10 @@ public class Queens extends AIWorkshopPanel implements TreeSelectionListener {
                 square[i][j] = new ChessSquare(i, j, this);
                 if (i % 2 == j % 2) {
                     square[i][j].setBackground(white);
-                    square[i][j].setPiece(chessPieceImages[BLACK][QUEEN]);
+                    square[i][j].setPiece(BLACK, QUEEN);
                 } else {
                     square[i][j].setBackground(black);
-                    square[i][j].setPiece(chessPieceImages[WHITE][QUEEN]);
+                    square[i][j].setPiece(WHITE, QUEEN);
                 }
                 square[i][j].setPreferredSize(new Dimension(squareSize, squareSize));
                 board.add(square[i][j]);
@@ -143,18 +153,20 @@ public class Queens extends AIWorkshopPanel implements TreeSelectionListener {
         }
     }
 
-    private void highlightTargets(int i, int j, boolean highlight) {
+    private int lookupTargets(int i, int j, boolean highlight) {
+        int foundTargets = 0;
+        
         for (int column = 0; column < boardSize; column++) {
             if (column == j) {
                 continue;
             }
-            square[i][column].setHighlight(highlight);
+            foundTargets += square[i][column].setHighlight(highlight);
         }
         for (int line = 0; line < boardSize; line++) {
             if (line == i) {
                 continue;
             }
-            square[line][j].setHighlight(highlight);
+            foundTargets += square[line][j].setHighlight(highlight);
         }
 
         int min = (i < j) ? i : j;
@@ -162,7 +174,7 @@ public class Queens extends AIWorkshopPanel implements TreeSelectionListener {
             if (line == i && column == j) {
                 continue;
             }
-            square[line][column].setHighlight(highlight);
+            foundTargets += square[line][column].setHighlight(highlight);
         }
 
         min = ((boardSize - 1 - i) < j) ? (boardSize - 1 - i) : j;
@@ -170,8 +182,40 @@ public class Queens extends AIWorkshopPanel implements TreeSelectionListener {
             if (line == i && column == j) {
                 continue;
             }
-            square[line][column].setHighlight(highlight);
+            foundTargets += square[line][column].setHighlight(highlight);
         }
+        
+        return foundTargets;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if ("solve".equals(e.getActionCommand())) {
+            addSolutionTree(new BreadthFirstSearch().solve(this));
+        }
+    }
+
+    private void addSolutionTree(SolutionTreeNode solve) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean checkSolution(ProblemState state) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<ProblemState> sucessorFunction(ProblemState state) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ProblemState getInitialState() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Image getPieceImage(int color, int piece) {
+        return chessPieceImages[color][piece];
     }
 
     private static class ChessSquare extends JPanel implements MouseListener {
@@ -182,8 +226,10 @@ public class Queens extends AIWorkshopPanel implements TreeSelectionListener {
         private final int i;
         private final int j;
         private final Queens board;
+        private Integer piece;
 
         public ChessSquare(int i, int j, Queens board) {
+            piece = null;
             pieceImage = null;
             highlight = false;
             highlightColor = Color.RED;
@@ -196,19 +242,30 @@ public class Queens extends AIWorkshopPanel implements TreeSelectionListener {
         private void initSquare() {
             this.addMouseListener(this);
         }
-
-        public void setPiece(Image piece) {
-            pieceImage = piece;
-            repaint();
+        
+        public void clearPiece() {
+            this.piece = null;
+            pieceImage = null;
         }
 
-        private void setHighlight(boolean highlight) {
+        public void setPiece(int color, int piece) {
+            this.piece = piece;
+            pieceImage = board.getPieceImage(color, piece);
+            repaint();
+        }
+        
+        public Integer getPiece() {
+            return piece;
+        }
+
+        private int setHighlight(boolean highlight) {
             this.highlight = highlight;
             repaint();
+            return (getPiece() != null) ? 1 : 0;
         }
 
         private void mouseHover(boolean on) {
-            board.highlightTargets(i, j, on);
+            board.lookupTargets(i, j, on);
         }
 
         @Override
